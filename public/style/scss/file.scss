@@ -1,0 +1,37 @@
+.custom-file {
+    height: 90px;
+    background-color: #fff;
+    width: 100%;
+
+    .custom-file-input {
+        display: none;
+        /* Oculta o input padrão */
+    }
+
+    img {
+        height: 90px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .custom-file-label {
+        display: inline-block;
+        padding: 10px 20px;
+        color: black;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 100;
+        border: 1px dashed #a7a7a7;
+
+        &:has(img) {
+            padding: 10px 0px;
+        }
+    }
+
+    .custom-file-label:hover {
+        background-color: var(--bs-border-color);
+        color: #fff;
+        font-weight: 500;
+    }
+}

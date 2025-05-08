@@ -1,0 +1,16 @@
+.banner {
+    min-height: 60vh;
+    z-index: 1;
+    height: 60vh;
+
+    &::before {
+        content: "";
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background: url(/image/img2.jpeg) no-repeat center center/cover;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+}
