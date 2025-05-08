@@ -1,7 +1,7 @@
 export default defineEventHandler(async (event) => {
   const { api } = useRuntimeConfig().public
   try {
-    const data = await $fetch<{ token: string }>(`${api}/users/login`, {
+    const data = await $fetch<{ access_token: string }>(`${api}/auth/login`, {
       method: 'POST',
       body: await readBody(event)
     })
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     }
 
     await setUserSession(event, {
-      token: data.token
+      token: data.access_token
     })
 
     setResponseStatus(event, 200)

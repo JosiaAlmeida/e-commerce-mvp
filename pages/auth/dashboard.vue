@@ -1,9 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+const products = ref()
+const load = async () => {
+  products.value = await $fetch('/api/generic/products/get') as any
+}
+onMounted(async () => {
+  await load()
+})
+</script>
 
 <template>
   <div class="container">
     <div class="row mt-5">
-      <ModalProduto />
+      <ModalProduto @fetch="() => load()" />
       <div class="col-12 mt-5 pt-5 mx-auto text-center">
         <h1>Josia Almeida</h1>
       </div>
@@ -15,29 +24,17 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Quantidade</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr v-for="item, i in products?.value">
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>John</td>
-              <td>Doe</td>
-              <td>@social</td>
+              <td>{{ item.nome }}</td>
+              <td>{{ item.preco }}</td>
+              <td> {{ item.stock }} </td>
             </tr>
           </tbody>
         </table>

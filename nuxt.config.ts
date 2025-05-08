@@ -18,5 +18,11 @@ export default defineNuxtConfig({
     {
       autoImports: ['defineStore', 'acceptHMRUpdate'],
     },
-  ], 'pinia-plugin-persistedstate/nuxt', 'nuxt-auth-utils']
+  ], 'pinia-plugin-persistedstate/nuxt', 'nuxt-auth-utils'],
+
+  runtimeConfig: {
+    public: {
+      api: 'http://localhost:3001'
+    }
+  }
 })

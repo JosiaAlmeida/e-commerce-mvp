@@ -1,6 +1,32 @@
 <script setup lang="ts">
+import { useUserStore } from '~/store/user'
+const emits = defineEmits(["fetch"])
+
+const user = useUserStore()
+
+const form = reactive({
+  name: '',
+  price: 0,
+  image: '',
+  stock: 0
+})
+
 const handleUpload = (file: any) => {
   console.log(file)
+}
+
+const save = async () => {
+  await $fetch('/api/generic/products/post', {
+    method: 'POST',
+    body: {
+      nome: form.name,
+      preco: Number(form.price),
+      // image: form.image,
+      stock: Number(form.stock),
+      vendedorId: user.getUser.userId
+    }
+  })
+  emits("fetch")
 }
 </script>
 
@@ -28,13 +54,14 @@ const handleUpload = (file: any) => {
                   id="fileInput" class="custom-file-input" />
               </div>
             </div>
-            <FormInputCustom label="Nome" type="text" class="my-3" />
-            <FormInputCustom label="Preço" type="number" />
+            <FormInputCustom @update:model-value="form.name = $event" label="Nome" type="text" class="my-3" />
+            <FormInputCustom @update:model-value="form.price = $event" label="Preço" type="number" />
+            <FormInputCustom @update:model-value="form.stock = $event" label="Stock" type="number" />
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-dark px-5" data-bs-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-dark px-5">Entrar</button>
+          <button type="button" data-bs-dismiss="modal" @click="save" class="btn btn-dark px-5">Salvar</button>
         </div>
       </div>
     </div>
